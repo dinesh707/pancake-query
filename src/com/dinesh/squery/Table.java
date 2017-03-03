@@ -1,5 +1,7 @@
 package com.dinesh.squery;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,14 +13,40 @@ public class Table {
   private final Map<Integer, String> index = new HashMap<Integer, String>();
   
 
-  public void addColumn(Column column) {
-    //TODO !!!
+  public void addColumn(int columnIndex, Column column) {
+    if (columns.containsKey(column.getName())) {
+      throw new RuntimeException("Column already available with given name");
+    }
+    if (index.containsKey(columnIndex)) {
+      throw new RuntimeException("Column already available at given index");   
+    }
+    
+    columns.put(column.getName(), column);
+    index.put(columnIndex, column.getName());
   }
 
 
-  public void addDataCell(int columnIndex, String formattedCell) {
-    // TODO Auto-generated method stub
+  public void addDataCell(int columnIndex, String data) throws ParseException {
+    String columnName = index.get(columnIndex);
+    Column column = columns.get(columnName);
     
+    Object typedData = parseToType(column, data);
+    column.addDataCell(typedData);
+  }
+
+
+  private Object parseToType(Column column, String data) throws ParseException {
+    final String dataType = column.getDataType();
+    if ("integer".equals(dataType)) {
+      return Integer.parseInt(data);      
+    } 
+    if ("string".equals(dataType)) {
+      return data;
+    }
+    if (dataType.contains("date")) {
+      return column.formatDate(data);
+    } 
+    throw new NotImplementedException("Not known type " + dataType);
   }
 
 }

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class TableBuilder {
   private String separatedBy;
   private boolean dataQuoated;
   
-  public Table buildTable(String csvFile, String schemaFile) throws IOException {
+  public Table buildTable(String csvFile, String schemaFile) throws IOException, ParseException {
     
     final YamlReader reader = new YamlReader(new FileReader(schemaFile));
     final Map config = (Map) reader.read();
@@ -54,16 +55,18 @@ public class TableBuilder {
 
     ArrayList<Object> schemaConfig = (ArrayList) config.get("schema");
     
+    int columnIndex = 0;
     for (Object columnObj : schemaConfig) {
       Map column = (Map) columnObj;
       String columnName = (String) column.get("name");
       String columnType = (String) column.get("type");
       Column tableColumn = new Column(columnName, columnType);
-      table.addColumn(tableColumn);
+      table.addColumn(columnIndex, tableColumn);
+      columnIndex++;
     }
   }
 
-  private void loadData(String csvFile, Table table) throws IOException {
+  private void loadData(String csvFile, Table table) throws IOException, ParseException {
     
     final FileInputStream fis = new FileInputStream(csvFile);
     final BufferedReader br = new BufferedReader(new InputStreamReader(fis));
