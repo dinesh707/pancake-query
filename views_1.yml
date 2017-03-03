@@ -1,0 +1,9 @@
+meta: 
+  skip_rows: 0
+  separated_by: comma
+  quoated: true
+schema:
+  - name: view_date
+    type: date(yyyy-mm-dd)
+  - name: view_sum
+    type: integer

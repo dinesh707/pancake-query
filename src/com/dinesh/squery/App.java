@@ -8,17 +8,9 @@ public class App {
   
   public static void main(String[] args) throws Exception {
     
-    FileInputStream fis = new FileInputStream("input_views_2.csv");
+    TableBuilder tableBuilder = new TableBuilder();
+    Table views1 = tableBuilder.buildTable("views_1.csv", "views_1.yml");
     
-    //Construct BufferedReader from InputStreamReader
-    BufferedReader br = new BufferedReader(new InputStreamReader(fis));
- 
-    String line = null;
-    while ((line = br.readLine()) != null) {
-        System.out.println(line);
-    }
- 
-    br.close();
   }
 
 }

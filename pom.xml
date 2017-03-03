@@ -8,6 +8,15 @@
   <packaging>jar</packaging>
   
   <dependencies>
+  
+  	<!-- yaml parser -->
+	<dependency>
+    	<groupId>com.esotericsoftware.yamlbeans</groupId>
+    	<artifactId>yamlbeans</artifactId>
+    	<version>1.11</version>
+	</dependency>
+  
+  	<!-- unit testing framework -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
