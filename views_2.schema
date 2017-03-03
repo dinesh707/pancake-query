@@ -1,6 +1,0 @@
-skip rows 1
-date(yyyy-mm-dd)::view_date
-integer::new
-integer::retained
-integer::total
-integer::app

@@ -74,7 +74,14 @@ public class TableBuilder {
     final String separator =  "comma".equals(separatedBy) ? "," : "\t";
     
     String rawRow = null;
+    int rowsToSkip = skipRowCount;
+    
     while ((rawRow = br.readLine()) != null) {
+      if (rowsToSkip > 0) {
+        rowsToSkip--;
+        continue;
+      }
+      
       String[] cells = rawRow.split(separator);
       int columnIndex = 0;
       for (String cell : cells) {

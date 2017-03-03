@@ -38,12 +38,18 @@ public class Table {
   private Object parseToType(Column column, String data) throws ParseException {
     final String dataType = column.getDataType();
     if ("integer".equals(dataType)) {
+      if (data.length() == 0) {
+        return null;
+      }
       return Integer.parseInt(data);      
     } 
     if ("string".equals(dataType)) {
       return data;
     }
     if (dataType.contains("date")) {
+      if (data.length() == 0) {
+        return null;
+      }
       return column.formatDate(data);
     } 
     throw new NotImplementedException("Not known type " + dataType);

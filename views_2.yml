@@ -1,0 +1,15 @@
+meta: 
+  skip_rows: 1
+  separated_by: comma
+  quoated: false
+schema:
+  - name: view_date
+    type: date(yyyy-mm-dd)
+  - name: new
+    type: integer
+  - name: retained
+    type: integer
+  - name: total
+    type: integer
+  - name: app
+    type: string
