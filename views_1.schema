@@ -1,0 +1,3 @@
+skip rows 0
+date(yyyy-mm-dd)::view_date
+integer::view_sum
