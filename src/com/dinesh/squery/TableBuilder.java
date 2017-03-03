@@ -61,27 +61,43 @@ public class TableBuilder {
       Column tableColumn = new Column(columnName, columnType);
       table.addColumn(tableColumn);
     }
-    
   }
 
   private void loadData(String csvFile, Table table) throws IOException {
-    //TODO //TODO //TODO !!!!!
     
-    FileInputStream fis = new FileInputStream(csvFile);
-    
-    
-    //Construct BufferedReader from InputStreamReader
-    BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+    final FileInputStream fis = new FileInputStream(csvFile);
+    final BufferedReader br = new BufferedReader(new InputStreamReader(fis));
   
-    String line = null;
-    while ((line = br.readLine()) != null) {
-        System.out.println(line);
+    final String separator =  "comma".equals(separatedBy) ? "," : "\t";
+    
+    String rawRow = null;
+    while ((rawRow = br.readLine()) != null) {
+      String[] cells = rawRow.split(separator);
+      int columnIndex = 0;
+      for (String cell : cells) {
+        String formattedCell = cell.trim();
+        if (dataQuoated) {       
+          formattedCell = removeQuoates(formattedCell);
+        }
+        table.addDataCell(columnIndex, formattedCell);
+        columnIndex++;
+      }
     }
-  
+ 
     br.close();
   }
 
-  
-
+  private String removeQuoates(String formattedCell) {
+    // if the trimmed cell is empty,then it should be a NULL
+    // empty string should minimully contain "".
+    if (formattedCell.length() >= 2) {
+      // we identify its single or double quoate
+      String quoateType = formattedCell.substring(0, 1);
+      // this will cut off starting and ending quoates.
+      formattedCell = formattedCell.substring(1, formattedCell.length()-1);
+      formattedCell = formattedCell.replaceAll("\\\\" + quoateType, quoateType);
+    }
+    return formattedCell;
+  }
 
 }
