@@ -24,7 +24,10 @@ public class TableBuilder {
     final YamlReader reader = new YamlReader(new FileReader(schemaFile));
     final Map config = (Map) reader.read();
     
-    final Table table = new Table();
+    // For now we use the name of file (without file extension as table name)
+    // TODO, may be this can be a part in yml file
+    String tableName = csvFile.split("\\.")[0];
+    final Table table = new Table(tableName);
     
     loadMetaConfig(config);
     loadColumns(config, table);

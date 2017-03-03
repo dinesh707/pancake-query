@@ -1,17 +1,18 @@
 package com.dinesh.squery;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Table {
   
+  private final String name;
   private final Map<String, Column> columns = new HashMap<String, Column>();
   private final Map<Integer, String> index = new HashMap<Integer, String>();
   
+  public Table(String name) {
+    this.name = name;
+  }
 
   public void addColumn(int columnIndex, Column column) {
     if (columns.containsKey(column.getName())) {
@@ -53,6 +54,10 @@ public class Table {
       return column.formatDate(data);
     } 
     throw new NotImplementedException("Not known type " + dataType);
+  }
+  
+  public String getName() {
+    return name;
   }
 
 }
