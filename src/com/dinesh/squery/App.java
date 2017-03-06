@@ -18,11 +18,12 @@ public class App {
     executor.addTables(views1, views2);
     
     String[] queries = new String[] {
-     "SELECT * FROM table_name;", 
-     "SELECT col_x, col_y FROM table_name;", 
-     "SELECT col_x, col_y FROM table_name LIMIT k;",
-     "SELECT col_x, col_y FROM table_name WHERE col_z = 'yello'  LIMIT k;",
-     "SELECT a,b FROM tab1 JOIN tab2 ON tab1.x = tab2.y  WHERE jjj LIMIT fff;"        
+     "SELECT * FROM views_1;", 
+     "SELECT view_date, total FROM views_2;", 
+     "SELECT view_date, total FROM views_2 LIMIT 5;",
+     "SELECT view_date, total, app FROM table_name WHERE app = 'AngryBirdsRioFull';",
+     //TODO, do proper query
+     //"SELECT a,b FROM tab1 JOIN tab2 ON tab1.x = tab2.y  WHERE jjj LIMIT fff;"        
     };
     
     for (String s : queries) {
