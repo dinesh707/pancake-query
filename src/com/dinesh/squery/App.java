@@ -17,8 +17,17 @@ public class App {
     //TODO, some day, system should auto add them as they get discovered.
     executor.addTables(views1, views2);
     
-    Results results = executor.executeQuery("SELECT * FROM views_1");
+    String[] queries = new String[] {
+     "SELECT * FROM table_name;", 
+     "SELECT col_x, col_y FROM table_name;", 
+     "SELECT col_x, col_y FROM table_name LIMIT k;",
+     "SELECT col_x, col_y FROM table_name WHERE col_z = 'yello'  LIMIT k;",
+     "SELECT a,b FROM tab1 JOIN tab2 ON tab1.x = tab2.y  WHERE jjj LIMIT fff;"        
+    };
     
+    for (String s : queries) {
+      Results results = executor.executeQuery(s);      
+    }
     
   }
 
